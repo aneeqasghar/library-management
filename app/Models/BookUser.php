@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Enums\BookUserStatus;
+use App\Enums\BookUser as BookUserStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 

@@ -2,9 +2,8 @@
 
 namespace App\Enums;
 
-enum BookUserStatus: string
+enum BookUser: string
 {
-    case AVAILABLE = 'available';
     case BORROWED = 'borrowed';
     case RETURNED = 'returned';
     case OVERDUE = 'overdue';
