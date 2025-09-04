@@ -2,20 +2,20 @@
 
 namespace App\Models;
 
+use App\Enums\BookStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Book extends Model
 {
-    /** @use HasFactory<\Database\Factories\BookFactory> */
-    use HasFactory;
 
-     protected $fillable = ['book_cover', 'title', 'author', 'published_year', 'genre', 'pdf_file'];
+     protected $guarded = [];
 
      protected function casts(): array
     {
         return [
             'uploaded_at' => 'datetime',
+            'status' => BookStatus::class,
         ];
     }
 

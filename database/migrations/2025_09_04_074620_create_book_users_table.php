@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users');
             $table->foreignId('book_id')->constrained('books');
-            $table->dateTime('borrow_at');
-            $table->dateTime('due_at');
-            $table->dateTime('return_at')->nullable();
+            $table->timestamp('borrow_at');
+            $table->timestamp('due_at');
+            $table->timestamp('return_at')->nullable();
             $table->enum('status', ['borrowed', 'returned', 'overdue', 'settled'] );
         });
     }

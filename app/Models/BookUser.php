@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\BookUserStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -17,6 +18,13 @@ class BookUser extends Model
         'due_at',
         'return_at',
         'status',
+    ];
+
+    protected $casts = [
+        'status' => BookUserStatus::class,
+        'borrow_at' => 'datetime',
+        'due_at' => 'datetime',
+        'return_at' => 'datetime',
     ];
 
     public function user() {

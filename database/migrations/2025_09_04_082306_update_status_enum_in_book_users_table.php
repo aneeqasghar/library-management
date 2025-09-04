@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -11,12 +12,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pricings', function (Blueprint $table) {
-            $table->id();
-            $table->integer('min_day')->notNull();   // e.g. 1
-            $table->integer('max_day')->notNull();   // e.g. 7
-            $table->integer('amount')->notNull();     // e.g. 50
-        });
+        DB::statement("ALTER TABLE book_users MODIFY status ENUM('available', 'borrowed', 'returned', 'overdue', 'settled')");
     }
 
     /**
@@ -24,6 +20,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pricings');
+        DB::statement("ALTER TABLE book_users MODIFY status ENUM('borrowed', 'returned', 'overdue', 'settled')");
     }
 };

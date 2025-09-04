@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('books', function (Blueprint $table) {
             $table->id();
-            $table->string('book_cover')->default('not available');; // store image path, 'not available' if not always provided
-            $table->string('title')->default('unknown');;
-            $table->string('author')->default('unknown');;
+            $table->string('book_cover')->nullable();
+            $table->string('title');
+            $table->string('author');
             $table->integer('published_year')->nullable();
             $table->string('genre');
-            $table->string('pdf_file');
+            $table->string('pdf_file')->nullable();
             $table->timestamp('uploaded_at');
         });
     }
