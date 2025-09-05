@@ -3,11 +3,13 @@
 namespace App\Models;
 
 use App\Enums\User as UserStatus;
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements FilamentUser
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory;
@@ -57,5 +59,15 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Book::class, 'book_user')
                     ->withPivot(['borrow_at', 'due_at', 'return_at', 'status']);
+    }
+
+    public function hasRole(string $role)
+    {
+        return $this->roles()->where('name', $role)->exists();
+    }
+
+    public function canAccessPanel(Panel $panel): bool
+    {
+        return $this->hasRole('admin');
     }
 }
