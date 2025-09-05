@@ -10,7 +10,8 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory;
+    use Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -47,11 +48,13 @@ class User extends Authenticatable
         ];
     }
 
-    public function roles() {
+    public function roles()
+    {
         return $this->belongsToMany(Role::class, 'role_user');
     }
 
-    public function books() {
+    public function books()
+    {
         return $this->belongsToMany(Book::class, 'book_user')
                     ->withPivot(['borrow_at', 'due_at', 'return_at', 'status']);
     }

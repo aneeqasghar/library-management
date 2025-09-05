@@ -8,10 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Book extends Model
 {
+    protected $guarded = [];
 
-     protected $guarded = [];
-
-     protected function casts(): array
+    protected function casts(): array
     {
         return [
             'uploaded_at' => 'datetime',

@@ -29,8 +29,8 @@ class UserFactory extends Factory
             'password' => static::$password ??= Hash::make('password'),
             'status' => 'active',
             'created_at' => now(),
-            'updated_at'=> null,
-             
+            'updated_at' => null,
+
         ];
     }
 

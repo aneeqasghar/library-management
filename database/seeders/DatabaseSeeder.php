@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
      */
 
     public function run(): void
-    {   
+    {
         $roles = Role::insert([
         ['name' => 'admin'],
         ['name' => 'member'],
@@ -28,9 +28,9 @@ class DatabaseSeeder extends Seeder
         $admin->roles()->attach(Role::where('name', 'admin')->first()->id);
 
         User::factory(50)->create()->each(function ($user) {
-        $user->roles()->attach(
-            Role::where('name', 'member')->first()->id
-        );
+            $user->roles()->attach(
+                Role::where('name', 'member')->first()->id
+            );
         });
 
 
