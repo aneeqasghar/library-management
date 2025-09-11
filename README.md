@@ -82,11 +82,18 @@ php artisan make:job ProcessBooks
 ```
 - Worker must be running:
 ```bash
-php artisan queue:work
+php artisan queue:work --queue=books
+```
+
+### 5. Schedulers
+- User are banned, and books are marked as overdue dynamically via schedulers
+- Schedulers must be running:
+```bash
+php artisan schedule:work
 ```
 
 ### 5. Mails
-- Configured to send after **book upload** (requires `queue:work`).
+- Configured to send after **book upload** via BookCreated/SendBookEmail (event/listener)
 
 ---
 

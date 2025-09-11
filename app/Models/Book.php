@@ -3,11 +3,16 @@
 namespace App\Models;
 
 use App\Enums\Book as BookStatus;
+use App\Events\BookCreated;
+use App\Events\BookCreating;
 use App\Mail\BookUploaded;
+use App\Observers\BookObserver;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Event;
 
 class Book extends Model
 {
@@ -18,15 +23,11 @@ class Book extends Model
     protected static function booted()
     {
         static::creating(function ($book) {
-            $book->uploaded_at = now();
-            $book->status = BookStatus::AVAILABLE;
+            event(new BookCreating($book));
         });
 
         static::created(function ($book) {
-        $user = Auth::user();
-        if ($user) { 
-            Mail::to($user->email)->queue(new BookUploaded($book));
-        }
+            event(new BookCreated($book, Auth::user()));
         });
     }
 

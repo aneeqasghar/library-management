@@ -32,9 +32,9 @@ class ListBooks extends ListRecords
                     ->required(),
             ])
             ->action(function ($data) {
-                $email = optional(Auth::user())->email;
+                $userId = Auth::user()->id;
                 foreach ($data['pdf_files'] as $file) {
-                    ProcessBooks::dispatch($file, $email)->onQueue('books');
+                    ProcessBooks::dispatch($file, $userId)->onQueue('books');
                 }
                 Notification::make()
                     ->title('Books upload queued')

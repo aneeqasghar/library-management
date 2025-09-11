@@ -2,10 +2,13 @@
 
 namespace App\Filament\Resources\BookUsers;
 
+use App\Filament\Resources\BookUsers\Pages\CreateBookUser;
+use App\Filament\Resources\BookUsers\Pages\EditBookUser;
 use App\Filament\Resources\BookUsers\Pages\ListBookUsers;
 use App\Filament\Resources\BookUsers\Pages\ViewBookUser;
 use App\Filament\Resources\BookUsers\Schemas\BookUserInfolist;
 use App\Filament\Resources\BookUsers\Tables\BookUsersTable;
+use App\Filament\Resources\Users\Schemas\BookUserForm;
 use App\Models\BookUser;
 use BackedEnum;
 use Filament\Resources\Resource;
@@ -28,6 +31,11 @@ class BookUserResource extends Resource
     public static function getTitle(BookUser $record): string
     {
        return $record->book?->title;
+    }
+
+    public static function form(Schema $schema): Schema
+    {
+        return BookUserForm::configure($schema);
     }
 
     public static function infolist(Schema $schema): Schema
