@@ -54,14 +54,26 @@ php artisan migrate
 php artisan db:seed
 ```
 
+## 3. Implement Telescope
+```bash
+php artisan db:seed
+```
+
 ---
 
 ## 🛠️ Filament's Admin Panel (Completed)
 
 ### 1. Install Filament
 ```bash
-composer require filament/filament:"^3.2"
+composer require laravel/telescope
 ```
+```bash
+php artisan telescope:install
+```
+```bash
+php artisan migrate
+```
+You may access the Telescope dashboard via the /telescope route.
 
 ### 2. Create Admin Panel
 ```bash
