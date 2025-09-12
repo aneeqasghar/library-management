@@ -18,6 +18,7 @@ return new class () extends Migration {
             $table->integer('published_year')->nullable();
             $table->string('genre');
             $table->string('pdf_file')->nullable();
+            $table->string('status');
             $table->timestamp('uploaded_at');
         });
     }
