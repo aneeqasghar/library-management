@@ -23,7 +23,8 @@ class UserForm
                     ->enum(UserStatus::class)
                     ->options([
                     UserStatus::ACTIVE->value => 'ACTIVE',
-                    UserStatus::BANNED->value => 'BANNED',
+                    UserStatus::BANNED->value => 'BAN',
+                    UserStatus::SUSPENDED->value => 'SUSPEND',
                     ])
                     ->default('active')
                     ->required()

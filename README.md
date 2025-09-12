@@ -114,3 +114,5 @@ php artisan schedule:work
 ```bash
 php artisan install:api
 ```
+-SOFT DELETES
+use Illuminate\Database\Eloquent\SoftDeletes;

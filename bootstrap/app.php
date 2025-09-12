@@ -2,6 +2,7 @@
 
 use App\Actions\BanUsers;
 use App\Actions\MarkOverdueBooks;
+use App\Actions\SuspendUsers;
 use App\Http\Middleware\UpgradeToHttpsUnderNgrok;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -21,6 +22,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withSchedule(function (Schedule $schedule) {
         $schedule->call(new MarkOverdueBooks)->everySecond();
         $schedule->call(new BanUsers)->everySecond();
+        $schedule->call(new SuspendUsers)->everySecond();
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

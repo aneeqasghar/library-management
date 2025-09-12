@@ -6,6 +6,7 @@ use App\Filament\Resources\Users\UserResource;
 use Filament\Actions\Action;
 use Filament\Resources\Pages\EditRecord;
 use App\Enums\User as UserStatus;
+use Filament\Actions\DeleteAction;
 use Filament\Notifications\Notification;
 
 class EditUser extends EditRecord
@@ -15,20 +16,7 @@ class EditUser extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            Action::make('Suspend')
-            ->button()
-            ->color('danger')
-            ->requiresConfirmation()
-            ->action(function () {
-                $this->record->update([
-                        'status' => UserStatus::SUSPENDED,
-                    ]);
-                Notification::make()
-                        ->title('Saved')
-                        ->success()
-                        ->send();
-            })
-             ->successRedirectUrl(ListUsers::getUrl())
+             DeleteAction::make()
         ];
     }
 
