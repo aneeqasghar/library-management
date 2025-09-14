@@ -75,7 +75,7 @@ class User extends Authenticatable implements FilamentUser
 
     public function books()
     {
-        return $this->belongsToMany(Book::class, 'book_user')
+        return $this->belongsToMany(Book::class, 'book_users')
                     ->withPivot(['borrow_at', 'due_at', 'return_at', 'status']);
     }
 

@@ -82,9 +82,9 @@ php artisan make:filament-panel Admin
 
 ### 3. Create Resources
 ```bash
-php artisan make:filament-resource User --generate
-php artisan make:filament-resource Book --generate
-php artisan make:filament-resource BookUser --generate
+php artisan make:filament-resource User --generate --soft-deletes
+php artisan make:filament-resource Book --generate --soft-deletes
+php artisan make:filament-resource BookUser --generate --soft-deletes
 ```
 
 ### 4. Bulk Book Upload with Queues
@@ -114,5 +114,3 @@ php artisan schedule:work
 ```bash
 php artisan install:api
 ```
--SOFT DELETES
-use Illuminate\Database\Eloquent\SoftDeletes;

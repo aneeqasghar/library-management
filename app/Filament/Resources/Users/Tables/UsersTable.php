@@ -2,12 +2,14 @@
 
 namespace App\Filament\Resources\Users\Tables;
 
+use App\Filament\Resources\Users\UserResource;
 use App\Enums\Role;
 use App\Enums\User as UserStatus;
 use Filament\Actions\EditAction;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Schemas\Components\Tabs\Tab;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Actions\BulkActionGroup;
@@ -75,6 +77,9 @@ class UsersTable
                 ->multiple(false),
                 TrashedFilter::make()
             ])
+            ->recordUrl(
+            fn ($record) => UserResource::getUrl('view', ['record' => $record])
+            )
             ->recordActions([
                 EditAction::make()
                     ->visible(fn ($record) => $record->status !== UserStatus::SUSPENDED),

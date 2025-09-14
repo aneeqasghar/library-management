@@ -11,14 +11,14 @@ class BookUserObserver
     public function creating(BookUser $bookUser)
     {
         $bookUser->status = BookUserStatus::BORROWED;
-        $bookUser->book->update(['status' => BookStatus::UNAVAILABLE]);
     }
     /**
      * Handle the BookUser "created" event.
      */
     public function created(BookUser $bookUser): void
     {
-        //
+        // Update book status to unavailable when a user borrows it
+        $bookUser->book->update(['status' => BookStatus::UNAVAILABLE]);
     }
 
     /**
