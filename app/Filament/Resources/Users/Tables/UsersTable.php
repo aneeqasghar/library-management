@@ -42,7 +42,7 @@ class UsersTable
                     ->badge()
                     ->separator(' ')
                     ->color(fn (Role $state): string => match ($state) {
-                        Role::ADMIN  => 'warning',
+                        Role::FULL_ACCESS  => 'warning',
                         Role::MEMBER => 'gray',
                     }),
                 TextColumn::make('status')
@@ -67,14 +67,6 @@ class UsersTable
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                SelectFilter::make('status')
-                ->label('User Status')
-                ->options([
-                    UserStatus::ACTIVE->value => 'Active',
-                    UserStatus::BANNED->value => 'Banned',
-                    UserStatus::SUSPENDED->value => 'Suspended',
-                ])
-                ->multiple(false),
                 TrashedFilter::make()
             ])
             ->recordUrl(
@@ -82,6 +74,7 @@ class UsersTable
             )
             ->recordActions([
                 EditAction::make()
+                    ->label('Status')
                     ->visible(fn ($record) => $record->status !== UserStatus::SUSPENDED),
                 DeleteAction::make()
                     ->icon(Heroicon::ArchiveBoxXMark),

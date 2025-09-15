@@ -3,7 +3,7 @@
 namespace App\Events;
 
 use App\Models\Book;
-use App\Models\User;
+use App\Models\Admin;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -19,12 +19,12 @@ class BookCreated
     use SerializesModels;
 
     public Book $book;
-    public ?User $user;
+    public Admin $admin;
 
-    public function __construct(Book $book, ?User $user = null)
+    public function __construct(Book $book, Admin $admin)
     {
         $this->book = $book;
-        $this->user = $user;
+        $this->admin = $admin;
     }
 
     /**

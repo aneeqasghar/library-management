@@ -7,6 +7,7 @@ use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
 use Filament\Schemas\Components\Tabs\Tab;
 use Illuminate\Database\Eloquent\Builder;
+use App\Enums\User as UserStatus;
 
 class ListUsers extends ListRecords
 {
@@ -21,10 +22,12 @@ class ListUsers extends ListRecords
     {
         return [
             'all' => Tab::make(),
-            'admin' => Tab::make()
-                ->modifyQueryUsing(fn (Builder $query) => $query->whereHas('roles', fn ($q) => $q->where('name', 'admin'))),
-            'member' => Tab::make()
-                ->modifyQueryUsing(fn (Builder $query) => $query->whereHas('roles', fn ($q) => $q->where('name', 'member'))),
+            'active' => Tab::make()
+                ->modifyQueryUsing(fn (Builder $query) => $query->where('status', UserStatus::ACTIVE)),
+            'banned' => Tab::make()
+                ->modifyQueryUsing(fn (Builder $query) => $query->where('status', UserStatus::BANNED)),
+            'suspended' => Tab::make()
+                ->modifyQueryUsing(fn (Builder $query) => $query->where('status', UserStatus::SUSPENDED)),
         ];
     }
 }

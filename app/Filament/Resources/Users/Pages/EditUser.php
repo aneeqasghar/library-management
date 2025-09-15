@@ -22,6 +22,6 @@ class EditUser extends EditRecord
 
     public function getHeading(): string
     {
-        return 'Edit Status';
+        return 'Change Status';
     }
 }

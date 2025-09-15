@@ -10,13 +10,15 @@ use Filament\Panel;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Admin extends Authenticatable
+class Admin extends Authenticatable implements FilamentUser
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory;
     use Notifiable;
     use SoftDeletes; 
 
+    protected $guard = 'admin';
+    
     /**
      * The attributes that are mass assignable.
      *
@@ -37,4 +39,12 @@ class Admin extends Authenticatable
     protected $hidden = [
         'password',
     ];
+
+    public function roles() {
+        return $this->morphToMany(Role::class, 'roleable');
+    }
+
+    public function canAccessPanel(Panel $panel): bool {
+        return true;
+    }
 }

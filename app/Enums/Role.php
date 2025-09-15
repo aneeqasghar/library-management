@@ -4,6 +4,6 @@ namespace App\Enums;
 
 enum Role: string
 {
-    case ADMIN = 'admin';
+    case FULL_ACCESS = 'full_access';
     case MEMBER = 'member';
 }

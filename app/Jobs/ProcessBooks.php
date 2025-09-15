@@ -6,7 +6,8 @@ use App\Events\BookCreated;
 use App\Events\BookCreating;
 use App\Mail\BookUploaded;
 use App\Models\Book;
-use App\Models\User;
+use App\Enums\Book as BookStatus;
+use App\Models\Admin;
 use App\Notifications\BookUploadedNotification;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -25,12 +26,12 @@ class ProcessBooks implements ShouldQueue
     use SerializesModels;
 
     public string $file;
-    public User $user;
+    public Admin $admin;
 
     public function __construct(string $file, int $userId)
     {
         $this->file = $file;
-        $this->user = User::find($userId);
+        $this->admin = Admin::find($userId);
     }
 
     public function handle()
@@ -41,11 +42,11 @@ class ProcessBooks implements ShouldQueue
                 'author' => 'N/A',
                 'genre' => 'N/A',
                 'pdf_file' => $this->file,
-                'status' => 'available',
+                'status' => BookStatus::AVAILABLE,
                 'uploaded_at' => now(),
             ]);
         });
         event(new BookCreating($book));
-        event(new BookCreated($book, $this->user));
+        event(new BookCreated($book, $this->admin));
     }
 }

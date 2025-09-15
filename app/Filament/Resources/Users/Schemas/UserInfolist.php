@@ -50,7 +50,7 @@ class UserInfolist
                                         ->separator(', ')
                                         ->icon('heroicon-o-shield-check')
                                         ->color(fn (Role $state): string => match ($state) {
-                                            Role::ADMIN  => 'warning',
+                                            Role::FULL_ACCESS  => 'warning',
                                             Role::MEMBER => 'gray',
                                         }),
 
