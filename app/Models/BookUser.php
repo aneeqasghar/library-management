@@ -37,7 +37,8 @@ class BookUser extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class)
+                    ->withTrashed();
     }
 
     public function book()
@@ -47,6 +48,7 @@ class BookUser extends Model
 
     public function getFineAttribute()
     {
+
         $today = Carbon::today();
         $returnDate = Carbon::parse($this->due_at);
 
@@ -54,11 +56,12 @@ class BookUser extends Model
             return 0;
         }
 
-        //if($this->status !== BookUserStatus::OVERDUE) {$this->update(['status' => BookUserStatus::OVERDUE]);}
-
         $overdueDays = $returnDate->diffInDays($today);
 
+        static $pricing;
+        if(!$pricing){
         $pricing = Pricing::all();
+        }
 
         $row = $pricing->first(function ($p) use ($overdueDays) {
             if ($overdueDays >= $p->min_day && $overdueDays <= $p->max_day) {
@@ -69,7 +72,6 @@ class BookUser extends Model
 
         if (!$row) {
             $row = $pricing->last();
-            //$this->user->update(['status' => 'banned']);
         }
 
         return $row ? $row->amount : 0;

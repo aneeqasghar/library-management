@@ -24,6 +24,7 @@ use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Filters\TrashedFilter;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Tables\Filters\Filter;
+use Illuminate\Support\Carbon;
 
 class UsersTable
 {
@@ -55,9 +56,11 @@ class UsersTable
                         UserStatus::SUSPENDED => 'warning',
                     }),
                 TextColumn::make('created_at')
+                    ->label('Created')
                     ->dateTime()
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->formatStateUsing(fn ($state) => $state->diffForHumans()),
                 TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()

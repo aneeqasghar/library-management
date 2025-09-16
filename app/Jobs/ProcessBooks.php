@@ -43,6 +43,6 @@ class ProcessBooks implements ShouldQueue
 
         // fire events with admin safely
         // event(new BookCreating($book));
-        event(new BookCreated($book, $admin));
+        BookCreated::dispatch($book, $admin);
     }
 }
