@@ -18,7 +18,8 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $roles = Role::insert([
-        ['name' => RoleName::FULL_ACCESS],
+            ['name' => RoleName::SUPER_ADMIN],
+        ['name' => RoleName::MODERATOR],
         ['name' => RoleName::MEMBER],
         ]);
 
@@ -27,7 +28,7 @@ class DatabaseSeeder extends Seeder
         'email' => 'admin@example.com',
         'password' => bcrypt('password'),
          ]);
-        $admin->roles()->attach(Role::where('name', RoleName::FULL_ACCESS)->first()->id);
+        $admin->roles()->attach(Role::where('name', RoleName::SUPER_ADMIN)->first()->id);
 
         User::factory(50)->create()->each(function ($user) {
             $user->roles()->attach(

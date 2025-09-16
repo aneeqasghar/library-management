@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\BookUsers\Pages;
 
 use App\Filament\Resources\BookUsers\BookUserResource;
+use Filament\Actions\DeleteAction;
 use Filament\Actions\EditAction;
 use Filament\Resources\Pages\ViewRecord;
 
@@ -13,6 +14,7 @@ class ViewBookUser extends ViewRecord
     protected function getHeaderActions(): array
     {
         return [
+            DeleteAction::make()
         ];
     }
 }

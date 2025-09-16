@@ -7,6 +7,7 @@ use App\Events\BookCreated;
 use App\Events\BookCreating;
 use App\Mail\BookUploaded;
 use App\Observers\BookObserver;
+use Filament\Facades\Filament;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -27,7 +28,10 @@ class Book extends Model
         });
 
         static::created(function ($book) {
-            event(new BookCreated($book, Auth::user()));
+            $admin = Filament::auth()->user();
+            if ($admin) {
+                event(new BookCreated($book, $admin));
+            }
         });
     }
 

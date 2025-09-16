@@ -9,7 +9,7 @@ use Illuminate\Support\Carbon;
 
 class BanUsers
 {
-    public function __invoke(): void
+    public function handle(): void
     {
         $records = BookUser::where('status', BookUserStatus::OVERDUE)
             ->whereDate('due_at', '<', Carbon::today()->subDays(30))
@@ -17,7 +17,7 @@ class BanUsers
             ->get();
 
         foreach ($records as $record) {
-            if ($record->user && $record->user->status !== 'banned') {
+            if ($record->user && $record->user?->status !== UserStatus::BANNED) {
                 $record->user->update(['status' => UserStatus::BANNED]);
             }
         }

@@ -9,7 +9,7 @@ use Illuminate\Support\Carbon;
 
 class SuspendUsers
 {
-    public function __invoke(): void
+    public function handle(): void
     {
         $records = BookUser::where('status', BookUserStatus::OVERDUE)
             ->whereDate('due_at', '<', Carbon::today()->subDays(60))

@@ -41,10 +41,7 @@ class UsersTable
                     ->label('Role')
                     ->badge()
                     ->separator(' ')
-                    ->color(fn (Role $state): string => match ($state) {
-                        Role::FULL_ACCESS  => 'warning',
-                        Role::MEMBER => 'gray',
-                    }),
+                    ->color('gray'),
                 TextColumn::make('status')
                     ->searchable()
                     ->icon(fn ($state) => match ($state) {

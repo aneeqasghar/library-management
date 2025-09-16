@@ -22,16 +22,6 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
-        Schema::dropIfExists('role_user');
-        Schema::create('roleables', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('role_id')->constrained()->cascadeOnDelete();
-            $table->unsignedBigInteger('roleable_id');
-            $table->string('roleable_type');
-            $table->timestamps();
-            // prevent duplicate role assignments
-            $table->unique(['role_id', 'roleable_id', 'roleable_type'], 'roleables_unique');
-        });
     }
 
     /**
@@ -40,6 +30,5 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('admins');
-        Schema::dropIfExists('roleables');
     }
 };

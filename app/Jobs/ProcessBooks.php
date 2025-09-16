@@ -6,7 +6,6 @@ use App\Events\BookCreated;
 use App\Events\BookCreating;
 use App\Mail\BookUploaded;
 use App\Models\Book;
-use App\Enums\Book as BookStatus;
 use App\Models\Admin;
 use App\Notifications\BookUploadedNotification;
 use Illuminate\Bus\Queueable;
@@ -20,33 +19,30 @@ use Illuminate\Support\Facades\Mail;
 
 class ProcessBooks implements ShouldQueue
 {
-    use Dispatchable;
-    use InteractsWithQueue;
-    use Queueable;
-    use SerializesModels;
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     public string $file;
-    public Admin $admin;
+    public int $userId;
 
     public function __construct(string $file, int $userId)
     {
         $this->file = $file;
-        $this->admin = Admin::find($userId);
+        $this->userId = $userId;
     }
 
     public function handle()
     {
-        $book = Model::withoutEvents(function () {
-            return Book::create([
-                'title' => 'N/A',
-                'author' => 'N/A',
-                'genre' => 'N/A',
-                'pdf_file' => $this->file,
-                'status' => BookStatus::AVAILABLE,
-                'uploaded_at' => now(),
-            ]);
-        });
-        event(new BookCreating($book));
-        event(new BookCreated($book, $this->admin));
+        $admin = Admin::find($this->userId);
+
+        $book = Book::create([
+            'title' => 'N/A',
+            'author' => 'N/A',
+            'genre' => 'N/A',
+            'pdf_file' => $this->file,
+        ]);
+
+        // fire events with admin safely
+        // event(new BookCreating($book));
+        event(new BookCreated($book, $admin));
     }
 }

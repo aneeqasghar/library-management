@@ -8,6 +8,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Console\Scheduling\Schedule;
+use App\Console\Kernel;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -20,9 +21,9 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->append(UpgradeToHttpsUnderNgrok::class);
     })
     ->withSchedule(function (Schedule $schedule) {
-        $schedule->call(new MarkOverdueBooks)->everySecond();
-        $schedule->call(new BanUsers)->everySecond();
-        $schedule->call(new SuspendUsers)->everySecond();
+        $schedule->command('app:ban-users-command')->everySecond();
+        $schedule->command('app:mark-overdue-books-command')->everySecond();
+        $schedule->command('app:suspend-users-command')->everySecond();
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

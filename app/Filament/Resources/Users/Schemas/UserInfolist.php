@@ -7,6 +7,8 @@ use App\Enums\User as UserStatus;
 use App\Filament\Resources\BookUsers\BookUserResource;
 use App\Models\Book;
 use Filament\Actions\Action;
+use Filament\Actions\ButtonAction;
+use Filament\Actions\DeleteAction;
 use Filament\Forms\Components\Select;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Infolists\Components\ImageEntry;
@@ -49,10 +51,7 @@ class UserInfolist
                                         ->badge()
                                         ->separator(', ')
                                         ->icon('heroicon-o-shield-check')
-                                        ->color(fn (Role $state): string => match ($state) {
-                                            Role::FULL_ACCESS  => 'warning',
-                                            Role::MEMBER => 'gray',
-                                        }),
+                                        ->color('gray'),
 
                                     TextEntry::make('status')
                                         ->badge()
@@ -68,7 +67,7 @@ class UserInfolist
                                         }),
                                 ]),
                         ]),
-                    Section::make('Borrowed Books')
+                    Section::make('Borrow History')
                         ->schema([
                             RepeatableEntry::make('books')
                                 ->grid(2)
@@ -96,6 +95,11 @@ class UserInfolist
                                                 'overdue'  => 'danger',
                                                 default    => 'gray',
                                             }),
+                                        ButtonAction::make('remove')
+                                            ->label('Remove')
+                                            ->color('danger')
+                                            ->url(fn ($record) => BookUserResource::getUrl('view', ['record' => $record]))
+                                            ->icon('heroicon-o-arrow-top-right-on-square'),
                                     ]),
                                 ])
                         ]),

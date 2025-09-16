@@ -96,6 +96,10 @@ php artisan make:job ProcessBooks
 ```bash
 php artisan queue:work --queue=books
 ```
+- Also for sending mails:
+```bash
+php artisan queue:work
+```
 
 ### 5. Schedulers
 - User are banned, and books are marked as overdue dynamically via schedulers

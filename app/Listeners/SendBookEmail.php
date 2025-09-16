@@ -27,6 +27,6 @@ class SendBookEmail
     public function handle(BookCreated $event): void
     {
         //Mail::to($event->user->email)->send(new BookUploaded($event->book));
-       Notification::send($event->admin, new BookUploadedNotification($event->book));
+        Notification::send($event->user, new BookUploadedNotification($event->book));
     }
 }

@@ -9,7 +9,7 @@ use Illuminate\Support\Carbon;
 
 class MarkOverdueBooks
 {
-    public function __invoke(): void
+    public function handle(): void
     {
         $overdueRecords = BookUser::where('status', '!=', BookUserStatus::RETURNED)
             ->where('status', '!=', BookUserStatus::OVERDUE)
