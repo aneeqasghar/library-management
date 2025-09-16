@@ -56,24 +56,25 @@ php artisan db:seed
 
 ## 3. Implement Telescope
 ```bash
-php artisan db:seed
+composer require laravel/telescope
 ```
+```bash
+php artisan telescope:install
+```
+You may access the Telescope dashboard via the /telescope route.
 
 ---
 
 ## 🛠️ Filament's Admin Panel (Completed)
 
 ### 1. Install Filament
+
 ```bash
-composer require laravel/telescope
+composer require filament/filament:"^4.0"
 ```
 ```bash
-php artisan telescope:install
+php artisan filament:install --panels
 ```
-```bash
-php artisan migrate
-```
-You may access the Telescope dashboard via the /telescope route.
 
 ### 2. Create Admin Panel
 ```bash
@@ -96,10 +97,6 @@ php artisan make:job ProcessBooks
 ```bash
 php artisan queue:work --queue=books
 ```
-- Also for sending mails:
-```bash
-php artisan queue:work
-```
 
 ### 5. Schedulers
 - User are banned, and books are marked as overdue dynamically via schedulers
@@ -111,6 +108,10 @@ php artisan schedule:work
 ### 5. Mails
 - Configured to send after **book upload** via BookCreated/SendBookEmail (event/listener)
 
+- Worker must be running:
+```bash
+php artisan queue:work
+```
 ---
 
 ## 📡 User API (In Progress)

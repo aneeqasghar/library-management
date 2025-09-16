@@ -22,12 +22,12 @@ class ListUsers extends ListRecords
     public function getTabs(): array
     {
         return [
-            'all' => Tab::make(),
-            'active' => Tab::make()
+            'All' => Tab::make(),
+            'Active' => Tab::make()
                 ->modifyQueryUsing(fn (Builder $query) => $query->where('status', UserStatus::ACTIVE)),
-            'banned' => Tab::make()
+            'Banned' => Tab::make()
                 ->modifyQueryUsing(fn (Builder $query) => $query->where('status', UserStatus::BANNED)),
-            'suspended' => Tab::make()
+            'Suspended' => Tab::make()
                 ->modifyQueryUsing(fn (Builder $query) => $query->where('status', UserStatus::SUSPENDED)),
         ];
     }

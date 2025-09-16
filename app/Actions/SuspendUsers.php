@@ -14,6 +14,7 @@ class SuspendUsers
         $records = BookUser::where('status', BookUserStatus::OVERDUE)
             ->whereDate('due_at', '<', Carbon::today()->subDays(60))
             ->with('user')
+            ->distinct()
             ->get();
 
         foreach ($records as $record) {

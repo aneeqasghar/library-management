@@ -14,6 +14,7 @@ class BanUsers
         $records = BookUser::where('status', BookUserStatus::OVERDUE)
             ->whereDate('due_at', '<', Carbon::today()->subDays(30))
             ->with('user')
+            ->distinct()
             ->get();
 
         foreach ($records as $record) {

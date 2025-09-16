@@ -2,17 +2,17 @@
 
 namespace App\Console\Commands;
 
-use App\Actions\MarkOverdueBooks;
+use App\Actions\MarkOverdueBooks as MarkOverdueBooksAction;
 use Illuminate\Console\Command;
 
-class MarkOverdueBooksCommand extends Command
+class MarkOverdueBooks extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'app:mark-overdue-books-command';
+    protected $signature = 'books:overdue';
 
     /**
      * The console command description.
@@ -26,7 +26,7 @@ class MarkOverdueBooksCommand extends Command
      */
     public function handle()
     {
-        app(MarkOverdueBooks::class)->handle();
-        $this->info('Overdue users banned successfully.');
+        app(MarkOverdueBooksAction::class)->handle();
+        $this->info('Books marked overdued successfully.');
     }
 }

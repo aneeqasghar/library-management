@@ -26,7 +26,7 @@ class BookUserResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
-    //protected static ?string $recordTitleAttribute = 'id';
+    protected static ?string $recordTitleAttribute = 'id';
 
     public static function getTitle(BookUser $record): string
     {

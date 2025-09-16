@@ -23,11 +23,11 @@ class ListAdmins extends ListRecords
     public function getTabs(): array
     {
         return [
-            'all' => Tab::make(),
+            'All' => Tab::make(),
             'Super Admin' => Tab::make()
-                ->modifyQueryUsing(fn (Builder $query) => $query->whereHas('roles', fn ($q) => $q->where('name', RoleName::SUPER_ADMIN))),
+                ->modifyQueryUsing(fn (Builder $query) => $query->whereHas('roles', fn ($subQuery) => $subQuery->where('name', RoleName::SUPER_ADMIN))),
             'Moderator' => Tab::make()
-                ->modifyQueryUsing(fn (Builder $query) => $query->whereHas('roles', fn ($q) => $q->where('name', RoleName::MODERATOR))),
+                ->modifyQueryUsing(fn (Builder $query) => $query->whereHas('roles', fn ($subQuery) => $subQuery->where('name', RoleName::MODERATOR))),
         ];
     }
 }

@@ -2,17 +2,17 @@
 
 namespace App\Console\Commands;
 
-use App\Actions\SuspendUsers;
+use App\Actions\SuspendUsers as SuspendUsersAction;
 use Illuminate\Console\Command;
 
-class SuspendUsersCommand extends Command
+class SuspendUsers extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'app:suspend-users-command';
+    protected $signature = 'users:suspend';
 
     /**
      * The console command description.
@@ -26,7 +26,7 @@ class SuspendUsersCommand extends Command
      */
     public function handle()
     {
-        app(SuspendUsers::class)->handle();
-        $this->info('Overdue users banned successfully.');
+        app(SuspendUsersAction::class)->handle();
+        $this->info('Overdue users suspended successfully.');
     }
 }

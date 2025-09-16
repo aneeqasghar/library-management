@@ -21,9 +21,9 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->append(UpgradeToHttpsUnderNgrok::class);
     })
     ->withSchedule(function (Schedule $schedule) {
-        $schedule->command('app:ban-users-command')->everySecond();
-        $schedule->command('app:mark-overdue-books-command')->everySecond();
-        $schedule->command('app:suspend-users-command')->everySecond();
+        $schedule->command('users:ban')->everySecond();
+        $schedule->command('books:overdue')->everySecond();
+        $schedule->command('users:suspend')->everySecond();
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //
