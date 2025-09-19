@@ -20,6 +20,7 @@ class SuspendUsers
         foreach ($records as $record) {
             if ($record->user && $record->user->status !== 'banned') {
                 $record->user->update(['status' => UserStatus::SUSPENDED]);
+                $record->user->tokens()->delete();
             }
         }
     }

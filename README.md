@@ -114,8 +114,50 @@ php artisan queue:work
 ```
 ---
 
-## 📡 User API (In Progress)
+## 📡 User API
 ### 1. Install API routes
 ```bash
 php artisan install:api
 ```
+This command generates `routes/api.php`, and ensures that Laravel is aware of the API routes by configuring `bootstrap/app.php` to load `routes/api.php` under the `api` middleware, with the `/api` prefix. Run new migrations:
+```bash
+php artisan migrate
+```
+
+### 2. Setup Postman
+- Connect to the server
+- Import the API collections given in `postman` directory
+
+### 3. Authentication
+Authentication is handled via Laravel Sanctum tokens.
+- Login → generates a token for the user.
+- Logout → invalidates the current token.
+- All protected routes require a token in the Authorization header:
+```bash
+Authorization: Bearer {{token}}
+```
+
+### 4. Protected Routes
+The following resources require authentication via Sanctum token:
+- Logout
+- User resource `/api/v1/user`
+- Book-User resources `/api/v1/book-users`
+- Borrow / Return resources of books `/api/v1/books/{book}/borrow`, `/api/v1/books/{book}/return`
+
+### 5. API Capabilities
+
+#### 👤 User
+- ✅ Can view his profile details
+- ✅ Can edit his profile
+- ✅ Can delete his profile
+- ❌ Cannot login if banned or suspended
+
+#### 📚 Books
+- ✅ Can view all books
+- ✅ Can view book details
+- ✅ Can borrow and return books
+- ❌ Cannot borrow books if the user has a fine
+
+#### 📖 Book-Users
+- ✅ Can view all his borrow records
+- ✅ Can view details of a specific borrow record

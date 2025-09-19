@@ -20,6 +20,7 @@ class BanUsers
         foreach ($records as $record) {
             if ($record->user && $record->user?->status !== UserStatus::BANNED) {
                 $record->user->update(['status' => UserStatus::BANNED]);
+                $record->user->tokens()->delete();
             }
         }
     }
