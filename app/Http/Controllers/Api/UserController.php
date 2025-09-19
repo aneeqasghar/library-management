@@ -20,7 +20,6 @@ class UserController extends Controller
     public function update(UpdateUserRequest $request) {
         $user = $request->user();
         $validated = $request->validated();
-        //dd($request->all(), $validated);
 
         if (isset($validated['password'])) {
         $validated['password'] = Hash::make($validated['password']);

@@ -42,7 +42,10 @@ class UsersTable
                     ->label('Role')
                     ->badge()
                     ->separator(' ')
-                    ->color('gray'),
+                    ->color(fn ($state) => match ($state) {
+                        Role::MEMBER    => 'primary',
+                        Role::VIEW_ONLY   => 'gray',
+                    }),
                 TextColumn::make('status')
                     ->searchable()
                     ->icon(fn ($state) => match ($state) {
@@ -74,7 +77,7 @@ class UsersTable
             )
             ->recordActions([
                 EditAction::make()
-                    ->label('Status')
+                    ->label('Update')
                     ->visible(fn ($record) => $record->status !== UserStatus::SUSPENDED),
                 DeleteAction::make()
                     ->icon(Heroicon::ArchiveBoxXMark),

@@ -28,6 +28,7 @@ class BookController extends Controller
 
     public function borrow(Request $request, Book $book)
     {
+        $this->authorize('borrow', $book);
         $user = $request->user();
 
         //Check for fines
@@ -68,6 +69,8 @@ class BookController extends Controller
     }
 
     public function return(ReturnBookRequest $request, Book $book) {
+
+        $this->authorize('return', $book);
         $user = $request->user();
 
         //fetch borrowed book

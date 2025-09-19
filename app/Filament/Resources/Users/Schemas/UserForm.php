@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources\Users\Schemas;
 
+use App\Models\Role;
+use App\Enums\Role as RoleName;
 use App\Enums\User as UserStatus;
 use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Select;
@@ -27,10 +29,26 @@ class UserForm
                     UserStatus::SUSPENDED->value => 'SUSPEND',
                     ])
                     ->default('active')
+                    ->required(),
+               Select::make('roles')
+                    ->label('Role')
+                    ->relationship('roles', 'id', modifyQueryUsing: function ($query) {
+                        $query->whereNotIn('name', [
+                            RoleName::SUPER_ADMIN->value,
+                            RoleName::MODERATOR->value,
+                        ]);
+                    })
                     ->required()
-                    ->disabled(function ($record) {
-                        return $record->roles->contains('name', 'admin');
-                    }),
+                    ->searchable()
+                    ->preload()
+                    ->getOptionLabelFromRecordUsing(
+                        fn ($record) => $record->name instanceof RoleName
+                            ? $record->name->value
+                            : $record->name
+                    )
+                    ->saveRelationshipsUsing(function ($state, $record) {
+                        $record->roles()->sync([$state]);
+                    })
             ]);
     }
 }

@@ -6,6 +6,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Password;
 
 class UpdateUserRequest extends FormRequest
 {
@@ -26,8 +27,14 @@ class UpdateUserRequest extends FormRequest
     {
         return [
             'name' => ['sometimes', 'required', 'string'],
-            'email' => ['sometimes', 'required', 'email', 'string', Rule::unique('users', 'email')->ignore($this->user()->id)],
-            'password' => ['sometimes', 'required', 'string', 'min:8']
+            'email' => ['sometimes', 'required', 'email', 'string', 'email:rfc,dns', Rule::unique('users', 'email')->ignore($this->user()->id)],
+            'password' => ['sometimes', 'required', 'string',
+                Password::min(8)
+                    ->mixedCase()
+                    ->numbers()
+                    ->symbols()
+                    ->uncompromised(),
+            ]
         ];
     }
 

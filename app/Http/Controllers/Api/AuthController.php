@@ -6,11 +6,13 @@ use App\Enums\User as UserStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\LoginRequest;
 use App\Http\Requests\Api\RegisterRequest;
+use App\Models\Role;
 use App\Models\User;
 use App\Traits\ApiResponses;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use App\Enums\Role as RoleName;
 
 class AuthController extends Controller
 {
@@ -23,6 +25,8 @@ class AuthController extends Controller
             'email'    => $registerRequest->email,
             'password' => Hash::make($registerRequest->password),
         ]);
+        $roleId = Role::where('name', RoleName::VIEW_ONLY)->value('id');
+        $user->roles()->attach($roleId);
 
         $token = $user->createToken('API Token: '.$user->email)->plainTextToken;
 

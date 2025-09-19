@@ -7,4 +7,5 @@ enum Role: string
     case SUPER_ADMIN = 'super_admin';
     case MODERATOR = 'moderator';
     case MEMBER = 'member';
+    case VIEW_ONLY = 'view_only';
 }

@@ -20,7 +20,7 @@ class ViewUser extends ViewRecord
     {
         return [
             EditAction::make()
-                ->label('Change Status')
+                ->label('Update')
                 ->visible(fn ($record) => $record->status !== UserStatus::SUSPENDED),
             Action::make('attach')
                 ->label('Attach Books')
