@@ -7,6 +7,8 @@ use App\Events\BookCreated;
 use App\Events\BookCreating;
 use App\Mail\BookUploaded;
 use App\Observers\BookObserver;
+use App\Policies\BookPolicy;
+use Illuminate\Database\Eloquent\Attributes\UsePolicy;
 use Filament\Facades\Filament;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -15,6 +17,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Event;
 
+#[UsePolicy(BookPolicy::class)]
 class Book extends Model
 {
     protected $guarded = [];

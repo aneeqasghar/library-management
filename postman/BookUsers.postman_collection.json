@@ -1,0 +1,99 @@
+{
+	"info": {
+		"_postman_id": "030bc95e-b4a8-40f1-a722-47fb209f0c85",
+		"name": "BookUsers",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "48099986",
+		"_collection_link": "https://syed-mohammad-9583553.postman.co/workspace/library-management~640841ba-9d82-4279-87ef-aa229cccd2c0/collection/48099986-030bc95e-b4a8-40f1-a722-47fb209f0c85?action=share&source=collection_link&creator=48099986"
+	},
+	"item": [
+		{
+			"name": "All Books Borrowed",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "10|24dmGCHmvzEUBXX6WURVkF6mpuuTSbIW3QNRaGNda67a0667",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/api/v1/book-users",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"book-users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Single Book Borrwed",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "10|24dmGCHmvzEUBXX6WURVkF6mpuuTSbIW3QNRaGNda67a0667",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/api/v1/book-users/9",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"book-users",
+						"9"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL",
+			"value": "",
+			"type": "default"
+		}
+	]
+}

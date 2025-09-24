@@ -25,17 +25,25 @@ class AdminForm
                     ->password()
                     ->dehydrateStateUsing(fn ($state) => Hash::make($state))
                     ->required(),
-                Select::make('role_id')
+                Select::make('roles')
                     ->label('Role')
+                    ->relationship('roles', 'id', modifyQueryUsing: function ($query) {
+                        $query->whereNotIn('name', [
+                            RoleName::MEMBER->value,
+                            RoleName::VIEW_ONLY->value,
+                        ]);
+                    })
                     ->required()
-                    ->options(
-                        Role::all()
-                        ->reject(fn($role) => ($role->name->value ?? $role->name) === RoleName::MEMBER->value) // exclude Member
-                        ->mapWithKeys(function ($role) {
-                            return [$role->id => $role->name->value ?? $role->name]; 
-                        })->toArray()
+                    ->searchable()
+                    ->preload()
+                    ->getOptionLabelFromRecordUsing(
+                        fn ($record) => $record->name instanceof RoleName
+                            ? $record->name->value
+                            : $record->name
                     )
-                    ->searchable(),
+                    ->saveRelationshipsUsing(function ($state, $record) {
+                        $record->roles()->sync([$state]);
+                    })
             ]);
     }
 }
